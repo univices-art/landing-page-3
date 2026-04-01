@@ -168,9 +168,14 @@ contactForm.addEventListener('submit', async (e) => {
     });
 
     if (response.ok) {
-      formStatus.textContent = '✅ Message sent! We\'ll get back to you shortly.';
-      formStatus.classList.add('success');
-      contactForm.reset();
+      const data = await response.json();
+      if (data.success) {
+        formStatus.textContent = '✅ Message sent! We\'ll get back to you shortly.';
+        formStatus.classList.add('success');
+        contactForm.reset();
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
     } else {
       throw new Error('Server error');
     }
