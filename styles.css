@@ -1184,12 +1184,11 @@ ul {
     top: var(--navbar-height);
     left: 0;
     width: 100%;
-    background: rgba(10, 10, 15, 0.97);
-    backdrop-filter: blur(20px);
+    background: transparent;
     flex-direction: column;
     gap: 0;
     padding: 16px 0 24px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid transparent;
     transform: translateY(-110%);
     transition: transform var(--transition);
     z-index: 999;
@@ -1197,6 +1196,9 @@ ul {
 
   .nav-links.open {
     transform: translateY(0);
+    background: rgba(10, 10, 15, 0.97);
+    backdrop-filter: blur(20px);
+    border-bottom-color: var(--border);
   }
 
   .nav-links li {
