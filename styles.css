@@ -1297,3 +1297,14 @@ ul {
     gap: 20px;
   }
 }
+
+/* =====================================================
+   TAWK.TO CHAT WIDGET – MOBILE POSITIONING FIX
+   ===================================================== */
+#chat-widget-container {
+  z-index: 1000 !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
