@@ -441,6 +441,7 @@ ul {
   justify-items: center;
 }
 
+/* Force 2-column layout on mid-size tablets (auto-fit would go to 3 cols at ~840px+) */
 @media (min-width: 640px) and (max-width: 1023px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
