@@ -191,6 +191,54 @@ contactForm.addEventListener('submit', async (e) => {
 /* ---- Footer Year ---- */
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* ---- Service Modals ---- */
+const modalTriggers = document.querySelectorAll('[data-modal]');
+const modalOverlays = document.querySelectorAll('.modal-overlay');
+
+function openModal(modalId) {
+  const overlay = document.getElementById(modalId);
+  if (!overlay) return;
+  overlay.hidden = false;
+  // Force reflow so transition plays
+  overlay.getBoundingClientRect();
+  overlay.classList.add('modal-visible');
+  document.body.style.overflow = 'hidden';
+  // Move focus to close button for accessibility
+  const closeBtn = overlay.querySelector('.modal-close');
+  if (closeBtn) closeBtn.focus();
+}
+
+function closeModal(overlay) {
+  overlay.classList.remove('modal-visible');
+  overlay.addEventListener('transitionend', () => {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+  }, { once: true });
+}
+
+modalTriggers.forEach((btn) => {
+  btn.addEventListener('click', () => openModal(btn.dataset.modal));
+});
+
+modalOverlays.forEach((overlay) => {
+  // Close on overlay backdrop click
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal(overlay);
+  });
+  // Close button
+  const closeBtn = overlay.querySelector('.modal-close');
+  if (closeBtn) closeBtn.addEventListener('click', () => closeModal(overlay));
+});
+
+// Close any open modal on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    modalOverlays.forEach((overlay) => {
+      if (!overlay.hidden) closeModal(overlay);
+    });
+  }
+});
+
 /* ---- Lazy loading images (native + IntersectionObserver fallback) ---- */
 if ('loading' in HTMLImageElement.prototype) {
   // Native lazy loading is supported — already set via loading="lazy" in HTML
